@@ -14,6 +14,7 @@
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .img-wrapper2 {
@@ -119,6 +120,36 @@
   font-size: 3rem;
 }
 
+main {
+  position: relative;
+}
+
+.modal {
+  width: 50rem;
+  height: 100rem;
+  background-color: bisque;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.img-wrapper3 {
+  padding-top: 2rem;
+  margin: 0 auto;
+  text-align: center;
+  width: 45rem;
+  height: 70rem;
+}
+
+.modal p {
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  color: rgba(240, 106, 106, 0.924);
+}
+
 @media (max-width: 888px) {
   .profile {
     display: flex;
@@ -140,4 +171,37 @@
   .content-header__title {
     margin-bottom: 1rem;
   }
+}
+
+button {
+  display: block;
+  color: white;
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: 2rem;
+  background-color: rgb(153, 193, 166) !important;
+  border-radius: 1rem;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+}
+
+.close-modal-btn {
+  display: block;
+  margin: 0 auto;
+  background-color: rgba(241, 183, 183, 0.91) !important;
+  padding: 1rem 3rem;
+}
+
+.is-open {
+  display: block;
+  z-index: 10;
+}
+
+.is-closed {
+  display: none;
+}
+
+.blossom-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

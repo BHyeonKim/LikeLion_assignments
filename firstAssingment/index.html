@@ -11,11 +11,17 @@
       rel="stylesheet"
     />
     <title>김보현의 자기소개서</title>
+    <script src="index.js" defer></script>
   </head>
   <body>
     <div class="profile">
       <div class="img-wrapper">
-        <img alt="profile image" src="./img/profile.jpg" class="img" />
+        <img
+          alt="profile image"
+          src="./img/profile.jpg"
+          class="img"
+          id="profile-image"
+        />
       </div>
       <section class="profile-content">
         <table class="profile-table">
@@ -101,6 +107,13 @@
       </ul>
     </nav>
     <main>
+      <div class="modal is-closed">
+        <div class="img-wrapper3">
+          <img class="blossom-img" src="./img/cherry-blossom.jpg" />
+        </div>
+        <p>벛꽃 구경하고 가세요~</p>
+        <button class="close-modal-btn">Close</button>
+      </div>
       <div class="content-wrapper">
         <div class="content-header">
           <h1 class="content-header__title">멋쟁이 사자 10기 웹 파트</h1>
@@ -117,6 +130,7 @@
           <p>주량 : 4잔</p>
           <p>애완견 : 초코 (11살)</p>
         </div>
+        <button class="open-modal-btn">클릭해주세요!</button>
       </div>
     </main>
   </body>
