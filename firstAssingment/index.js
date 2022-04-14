@@ -8,8 +8,7 @@ const IMAGES = [
 // 프로필 이미지를 누르면 이미지 전환
 const profileImage = document.getElementById('profile-image');
 profileImage.addEventListener('click', () => {
-  profileImage.src.replace('http://localhost:3000/', './') ===
-  './img/profile.jpg'
+  profileImage.src.endsWith('profile.jpg')
     ? (profileImage.src = './img/profile2.jpg')
     : (profileImage.src = './img/profile.jpg');
 });
