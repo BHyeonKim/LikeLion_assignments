@@ -7,7 +7,7 @@ function App() {
     <div className='App'>
       <Profile />
       <Navigation />
-      <Main />
+      <Main name='김보현' />
     </div>
   );
 }

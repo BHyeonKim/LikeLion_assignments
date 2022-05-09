@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import classes from './Main.module.scss';
 
@@ -8,7 +9,7 @@ const IMAGES_PATH = [
   '/cherry-blossom4.jpg',
 ];
 
-function Main() {
+function Main({ name }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [imagesIndex, setImagesIndex] = useState(0);
 
@@ -59,7 +60,7 @@ function Main() {
           <h1 className={classes['content__header--title']}>
             멋쟁이 사자 10기 웹 파트
           </h1>
-          <h1 className={classes['content__header--name']}>김보현</h1>
+          <h1 className={classes['content__header--name']}>{name}</h1>
         </div>
         <div className={classes.content__main}>
           <p>학번 : 60172136</p>
@@ -82,5 +83,9 @@ function Main() {
     </main>
   );
 }
+
+Main.propTypes = {
+  name: PropTypes.string,
+};
 
 export default Main;
