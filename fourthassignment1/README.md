@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# MPA VS SPA
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## MPA (다중 페이지 어플리케이션)
 
-## Available Scripts
+멀티페이지 어플리케이션은 전통적인 방법으로 서버에 페이지를 요청하면 서버에서 해당 html,css ,js 을 응답하고 클라이언트에서는 이를 로드합니다.
+장점으로는 검색엔진최적화가 쉽고 단점으로는 개발이 복잡하고, SPA만큼의 부드러운 전환은 할 수 없습니다.
 
-In the project directory, you can run:
+- 장점
+  - SEO
+- 단점
+  - 상대적으로 복잡한 개발
+  - 부드럽지 못한 전환
 
-### `npm start`
+## SPA (싱글 페이지 어플리케이션)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+싱글페이지 어플리케이션은 사용하는 동안 페이지 로딩을 필요로 하지 않습니다.
+싱글페이지는 페이지 리로드가 필요없기 때문에 MPA보다 부드러운 사용자 경험을 제공합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+단점으로는 자바스크립트에 의존적이므로 자바스크립트를 강제로 꺼버리면 사용할 수 없게 되고, 자바스크립트가 실행되야 컨텐츠가 보이므로 SEO(검색엔진최적화)에 문제가 생깁니다.
 
-### `npm test`
+- 장점
+  - 부드러운 전환
+  - 개발 속도
+- 단점
+  - SEO
+  - 자바스크립트 필수
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+# Virtual DOM
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Virtual DOM은 왜 필요할까?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+DOM 조작은 모던, 상호작용하는 웹에서 핵심입니다. 하지만, DOM 조작은 많은 자바스크립트 작업보다 훨신 느립니다.
+모던 자바스크립트 프레임워크들은 DOM을 그들이 해야하는 것 보다 더 많이 조작을 하는데, 이것은 DOM 조작을 더욱 느리게 합니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+예를 들어, 당신이 10개의 아이템을 포함하고 있는 리스트를 가지고 있다고 합시다. 당신이 첫번째 아이템을 변경한다면, 많은 자바스크립트 프레임워크는 전체 리스트를 다시 만들 것 입니다.
+첫번째 아이템만 변경하면 되는데, 전체 리스트를 다시 만들다니, 필요한 것보다 일을 10배 더 하는 것 이죠.
+하나의 아이템만 변경됬지만, 다른 아이템들도 전의 상태와 정확히 동일하게 rebuild 됩니다.
 
-### `npm run eject`
+이런 리스트를 다시 build하는 것은 웹브라우저에서는 큰 문제가 아닐지도 모릅니다. 하지만 모던 웹사이트는 엄청나게 많이 DOM을 조작합니다. 이런 비효율적인 DOM변경은 큰 문자가 될 수 있습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+이런 문제를 해결하기 위해, React는 virtual DOM라는 개념을 도입했습니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Virtual DOM이란?
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+React의 Virtual Dom은 가상의 DOM에 번경사항을 먼저 저장하고 ReactDOM 라이브러리를 통해 실제 DOM과 동기화를 합니다.
+React는 모든 DOM 객체를 virtual DOM 객체에 대응시킵니다. virtual DOM은 실제 DOM의 lightweight 버전입니다.
+DOM을 조작하는 것은 느리지만 virtual DOM을 조작하는 것은 훨신 빠릅니다. 왜냐하면 virtual DOM은 화면에 아무것도 그리지 않기 때문입니다.
+Virtual DOM을 조작하는 것은 설계도(청사진)을 수정하는 것에 비유할 수 있고, 실제 DOM을 조작하는 것은 진짜 집에서 방을 움직이는 것에 비유할 수 있습니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## How it helps?
 
-## Learn More
+jsx로 만들어진 element를 렌더링하면, 모든 virtual DOM 객체가 업데이트됩니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+이건 굉장히 비효율적으로 들릴 수 있지만, virtual DOM은 굉장히 빨리 업데이트를 할 수 있기 때문에 여기에 드는 비용은 의미가 없습니다.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+한번 virtual DOM이 업데이트되면, React는 업데이트 된 virtual DOM과 바로 직전 virtual DOM의 snapshot을 비교합니다.
 
-### Code Splitting
+virtual DOM을 업데이트 되기 전의 버전과 비교함으로, 리엑트는 정확히 어떤 virtual DOM 객체들이 변경되었는지 알아냅니다. 이 프로세스는 "diffing"이라고 불립니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+일단 어떤 virtual DOM 객체가 변경되었는지 알아냈다면, 리엑트는 그 객체들만 실제 DOM에 업데이트합니다.
 
-### Analyzing the Bundle Size
+앞의 예시에서는, React는 똑똑하기 때문에 나머지의 아이템들은 다시 build 하지 않고 선택한 아이템만 변경합니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+이것은 굉장히 큰 차이를 만듭니다.
 
-### Making a Progressive Web App
+### React는 DOM의 필요한 부분만 변경할 수 있습니다. React의 성능에 대한 호평은 이 혁명에서 오는 부분이 크게 차지하고 있습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+사용자가 React를 통해 DOM을 조작하려고 할 때 일어나는 일을 요약하자면,
 
-### Advanced Configuration
+1. 전체 virtual DOM이 업데이트 된다.
+2. 업데이트 된 virtual DOM은 이전 virutal DOM과 비교한다. React는 어떤 virtual DOM 객체가 변경됬는지 알아낸다.
+3. 변경된 virtual DOM 객체만 실제 DOM에 업데이트 한다.
+4. 업데이트된 실제 DOM은 screen을 바뀌게 한다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+# 브라우저의 렌더링 과정
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+브라우저에는 자바스크립트 엔진(크롬의 경우 V8엔진)말고도 렌더링 엔진이라는 것이 있습니다.
+렌더링 엔진의 역할은 요청받은 내용을 브라우저 화면에 나타내는 일입니다.
 
-### `npm run build` fails to minify
+브라우저마다 사용하는 렌더링 엔진이 달라 브라우저마다 다르게 그려지는 크로스 브라우징 이슈가 발생하게 됩니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+대표적으로 크롬은 Blink, 사파리는 Webkit, 파이어폭스는 Gecko를 사용합니다.
+
+렌더링 엔진마다 다를 수 있지만 과정을 크게 나누어 보자면
+
+1. HTML,CSS,JS 로드.
+2. HTML 파싱, CSS 파싱.
+3. 파싱된 HTML을 가지고 DOM 트리를 구성, 파싱된 CSS를 가지고 CSSOM 트리 구성.
+4. DOM 트리와 CSSOM 트리를 결합하여 render 트리 구성.
+5. render 트리를 가지고 painting을 하여 화면에 표시.
