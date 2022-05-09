@@ -1,0 +1,37 @@
+.navigation {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 10rem;
+  background-color: #e03131;
+
+  &__menu {
+    width: 8rem;
+    margin-left: 1rem;
+    cursor: pointer;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    &--link {
+      margin: 0 1.2rem;
+      font-family: Smokum, cursive;
+      font-size: 4rem;
+      text-shadow: 0 5px 4px rgba(0, 0, 0, 20%);
+      letter-spacing: 4px;
+      list-style: none;
+      cursor: pointer;
+
+      & a:hover {
+        color: rgba(255, 0, 0, 98.2%);
+      }
+    }
+  }
+}
