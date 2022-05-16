@@ -92,3 +92,44 @@ virtual DOM을 업데이트 되기 전의 버전과 비교함으로, 리엑트�
 3. 파싱된 HTML을 가지고 DOM 트리를 구성, 파싱된 CSS를 가지고 CSSOM 트리 구성.
 4. DOM 트리와 CSSOM 트리를 결합하여 render 트리 구성.
 5. render 트리를 가지고 painting을 하여 화면에 표시.
+
+---
+
+# 클래스형 컴포넌트 vs 함수형 컴포넌트
+
+### 함수형 컴포넌트
+
+- 함수형 컴포넌트는 인자로 props를 받고 React element를 return 하는 자바스크립트 함수입니다.
+- 함수형 컴포넌트는 안에 render 메소드를 사용하지 않습니다.
+- 함수형 컴포넌트는 Stateless 컴포넌트라고도 알려져있는데 왜냐하면 함수형 컴포넌트는 data를 받아서 display하는, UI를 rendering하는데에 중점적이기 때문입니다.
+- 함수형 컴포넌트에서 lifecycle 메소드(componentDidMount 등)은 사용할 수 없습니다.
+- Hooks는 함수형 컴포넌트를 stateful하는데 쉽게 사용할 수 있습니다.
+- 생성자가 사용되지 않습니다.
+
+### 클래스 컴포넌트
+
+- 클래스 컴포넌트를 정의하기 위해서는 React을 extend 됩니다. 이 컴포넌트는 React element를 return하기 위해 render메소드를 사용합니다.
+- JSX를 return하기 위해 render메소드를 사용해야됩니다.
+- logic과 state를 가지고 있어서 stateful 컴포넌트라고도 불립니다.
+- lifecycle메소드를 클래스 컴포넌트 안에서 사용할 수 있습니다.
+- hooks들을 구연하기 위해서는 다른 syntax가 필요합니다.
+- state를 저장하기 위해 Constructor가 필요합니다.
+
+## 함수형 컴포넌트를 권장하는 이유
+
+- react hooks들은 함수형 컴포넌트에서만 사용할 수 있습니다.
+- 함수형 컴포넌트는 state와 likecycle-hooks가 없는 plain 자바스크립트 함수이기 때문에 코드를 읽고 테스트 하기 훨신 편합니다.
+- 코드의 양을 줄일 수 있습니다.
+- container와 presentatinal 컴포넌트를 분리하기 쉽습니다. hooks를 사용못하는 클래스 컴포넌트에서는 고려해야할 것이 많기 때문입니다.
+- React team에서 미래의 react version에서 함수형 컴포넌트를 사용하면 성능향상이 있을 수 있다고 언급했습니다!
+
+# 렌더링? 마운트?
+
+### 마운트
+
+DOM에 삽입되었을 때 마운트라고 말한다.
+ReactDOM.render 함수를 사용해서 DOM에 마운트 할 수 있다.
+
+### 렌더링
+
+마운트 되었거나 , props의 값이 바뀌거나, 부모 컴포넌트가 재렌더링 되거나(useMemo를 사용안했을 때), 컴포넌트의 state가 바뀌었을 때 재렌더링 된다.
