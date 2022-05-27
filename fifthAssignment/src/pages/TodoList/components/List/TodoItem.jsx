@@ -11,7 +11,6 @@ function TodoItem({ item, toggle, onDelete }) {
 
   const textChangeHandler = (e) => {
     setInput(e.target.value)
-    console.log(input)
   }
 
   const editingHandler = () => {
