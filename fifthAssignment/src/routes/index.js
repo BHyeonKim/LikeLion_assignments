@@ -1,4 +1,4 @@
-import TodoList from '../pages/TodoList/TodoList'
+import TodoList from '../pages/TodoList'
 import styles from './Routes.module.scss'
 
 function App() {

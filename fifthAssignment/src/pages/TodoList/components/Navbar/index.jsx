@@ -1,24 +1,22 @@
 import classes from './NavigationBar.module.scss'
 
-import { ReactComponent as Hamberger } from '../svgs/hamberger.svg'
-import { ReactComponent as Search } from '../svgs/search.svg'
-import { ReactComponent as Bell } from '../svgs/bell.svg'
+import { HambergerIcon, SearchIcon, BellIcon } from '../../../../assets/svgs'
 
 function NavigationBar() {
   return (
     <nav className={classes.navigationBar}>
       <div className={classes.navigationBar__button}>
-        <Hamberger />
+        <HambergerIcon />
       </div>
       <div className={classes.navigationBar__rightitems}>
         <button
           type='button'
           className={`${classes.navigationBar__button} ${classes['navigationBar__button--search']}`}
         >
-          <Search />
+          <SearchIcon />
         </button>
         <button type='button' className={`${classes.navigationBar__button} ${classes['navigationBar__button--bell']}`}>
-          <Bell />
+          <BellIcon />
         </button>
       </div>
     </nav>

@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
+import { useRecoilState } from 'recoil'
+import { todosState } from '../../../../recoil/atom'
 
 import classes from './InputForm.module.scss'
 
-function InputForm({ add }) {
+function InputForm() {
+  const [todos, setTodos] = useRecoilState(todosState)
   const [input, setInput] = useState('')
 
   const changeInputHandler = (e) => {
@@ -13,8 +15,8 @@ function InputForm({ add }) {
   const submitHandler = (e) => {
     e.preventDefault()
     if (input.trim().length === 0) return
-    add(input)
 
+    setTodos([...todos, { text: input, id: Date.now(), checked: false }])
     setInput('')
   }
 
@@ -26,10 +28,6 @@ function InputForm({ add }) {
       </button>
     </form>
   )
-}
-
-InputForm.propTypes = {
-  add: PropTypes.func,
 }
 
 export default InputForm
