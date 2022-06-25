@@ -1,13 +1,16 @@
+import { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { todosState } from '../../../../recoil/atom'
 import PropTypes from 'prop-types'
 
 import classes from './TodoItem.module.scss'
 
-import { ReactComponent as Check } from '../svgs/check.svg'
-import { useState } from 'react'
+import { CheckIcon } from '../../../../assets/svgs'
 
-function TodoItem({ item, toggle, onDelete }) {
+function TodoItem({ item }) {
+  const [todos, setTodos] = useRecoilState(todosState)
   const [isEditing, setIsEditing] = useState(false)
-  const [input, setInput] = useState(item.todo)
+  const [input, setInput] = useState(item.text)
 
   const textChangeHandler = (e) => {
     setInput(e.target.value)
@@ -18,11 +21,16 @@ function TodoItem({ item, toggle, onDelete }) {
   }
 
   const checkHandler = () => {
-    toggle(item)
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === item.id) return { ...item, checked: !item.checked }
+        return { ...todo }
+      })
+    )
   }
 
   const clickDeleteHandler = () => {
-    onDelete(item)
+    setTodos(todos.filter((todo) => todo !== item))
   }
 
   return (
@@ -35,7 +43,7 @@ function TodoItem({ item, toggle, onDelete }) {
         className={`${classes.item__checkBtn} ${item.checked ? '' : classes['notChecked--btn']}`}
         onClick={checkHandler}
       >
-        <Check />
+        <CheckIcon />
       </button>
       <p
         className={`${classes.item__todo} ${item.checked ? '' : classes['notChecked--text']}`}
@@ -44,13 +52,20 @@ function TodoItem({ item, toggle, onDelete }) {
       >
         {!item.checked && isEditing ? (
           <form type='submit'>
-            <input type='text' className={classes['item__todo--input']} onChange={textChangeHandler} value={input} />
+            <input
+              type='text'
+              className={classes['item__todo--input']}
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
+              onChange={textChangeHandler}
+              value={input}
+            />
             <button type='button' className={classes.item__editBtn}>
               Edit
             </button>
           </form>
         ) : (
-          input
+          item.text
         )}
       </p>
       {item.checked && (
@@ -65,11 +80,9 @@ function TodoItem({ item, toggle, onDelete }) {
 TodoItem.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number.isRequired,
-    todo: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
   }).isRequired,
-  toggle: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
 }
 
 export default TodoItem
